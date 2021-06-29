@@ -2,9 +2,10 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
 const Weatherobject = props => {
+
   return (
     <View style={styles.container}>
-      <Text>{props.text}</Text>
+      <Text style={styles.weathertext}>{props.text}</Text>
     </View>
   );
 };
@@ -14,7 +15,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 12,
     alignItems: 'center',
-    backgroundColor: '#80ff80',
+    backgroundColor: '#deeafe',
   },
+  weathertext: {
+    fontSize: 30,
+  }
 });
 export default Weatherobject;

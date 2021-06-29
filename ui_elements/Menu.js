@@ -12,14 +12,14 @@ import {View, Text, Button, TextInput, StyleSheet, Image} from 'react-native';
 export default class Menu extends Component {
 
     onPress = () => {
-        //placeholder
+        //placeholder for Michi
     };
 
     render() {
         return (
                 <View style={styles.menu}>
                     <View style={styles.burger}></View>
-                    <TextInput style={styles.searchbar}/>
+                    <TextInput style={styles.searchbar} id='idSearch'/>
                     <Button title={'Suchen'} onPress={this.onPress}>
                     </Button>
                 </View>
