@@ -26,7 +26,8 @@ export class Openweather_api {
 
   getWeatherInformation = async () => {
     try {
-      let response = await fetch(this.getURLByCityID(2172797));
+      let response = await fetch(this.getURLByCityID(2809889));
+      // let response = await fetch(this.getURLByGeographicCoordinates());
       var responseText = await response.text();
       console.log(
         Time_formatter.getCurrentTime() + ' response: ' + responseText,

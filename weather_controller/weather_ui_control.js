@@ -28,6 +28,7 @@ export class Weather_ui_control {
     this.app.setState({wind_speed: this.data.getWindSpeed()});
     this.app.setState({description: this.data.getWeatherDescription()});
     this.app.setState({weather_main_description: this.data.getWeatherMain()});
+    this.app.setState({name: this.data.getName()});
     console.log('update ' + this.data.toString());
     console.log(this.app.state);
   }

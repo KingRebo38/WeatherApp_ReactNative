@@ -14,6 +14,7 @@ import {Openweather_data_model} from './weather_http_requests/openweather_data_m
 import {Weather_ui_control} from './weather_controller/weather_ui_control';
 import Menu from './ui_elements/Menu';
 import Weatherobject from './ui_elements/Weatherobject';
+import PocketView from './ui_elements/PocketView';
 
 export default class App extends Component {
   state = {
@@ -27,6 +28,7 @@ export default class App extends Component {
     wind_speed: 'filler',
     description: 'filler',
     weather_main_description: 'filler',
+    name: '',
   };
 
   constructor(props) {
@@ -54,8 +56,12 @@ export default class App extends Component {
     return (
       <View style={styles.framework}>
         <Menu />
+        <PocketView
+          city={this.state.name}
+          temp={this.state.temperature}></PocketView>
         {/* eslint-disable-next-line react/jsx-no-undef */}
-        <Weatherobject text={'Umut ist ne Schneeflocke'} />
+        {/*<Weatherobject text={'Umut ist ne Schneeflocke'} />*/}
+        <Weatherobject text={this.state.name} />
         <Weatherobject text={this.state.temperature} />
         <Weatherobject text={this.state.min_temperature} />
         <Weatherobject text={this.state.max_temperature} />
