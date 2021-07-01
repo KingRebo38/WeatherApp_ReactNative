@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
+import Icon from 'react-native-vector-icons/Feather'
 const PocketView = props => {
 
         return (
             <View style={styles.container}>
                 <Text style={styles.citytext}>{props.city}</Text>
-                <Image style={styles.weatherImage} source={require('C:/Users/hspfl/IdeaProjects/WeatherApp_ReactNative/ui_elements/Unbenannt.png')}/>
+                <Icon name="sun" size={100} color="#F0DA0B"/>
                 <Text style={styles.citytext}>{props.temp}</Text>
             </View>
         );
