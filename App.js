@@ -15,6 +15,7 @@ import {Weather_ui_control} from './weather_controller/weather_ui_control';
 import Menu from './ui_elements/Menu';
 import Weatherobject from './ui_elements/Weatherobject';
 import PocketView from "./ui_elements/PocketView";
+import Nextday from "./ui_elements/Nextday";
 
 export default class App extends Component {
   state = {
@@ -53,11 +54,12 @@ export default class App extends Component {
 
   render() {
     return (
-        <View style={styles.framework}>
-            <Menu/>
-            <PocketView city={'London'} temp ={this.state.temperature + '°C'}/>
-            <Weatherobject state ={this.state}/>
-        </View>
+        <ScrollView style={styles.framework}>
+          <Menu/>
+          <PocketView city={'London'} temp ={this.state.temperature + '°C'}/>
+          <Weatherobject state ={this.state}/>
+          <Nextday day={'Mo'} state={this.state}/>
+        </ScrollView>
     );
   }
 }
