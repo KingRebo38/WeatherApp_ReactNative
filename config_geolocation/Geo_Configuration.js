@@ -12,9 +12,12 @@ import {
     StyleSheet,
     Text,
     TouchableHighlight,
-    View
+    View,
+    Button,
+    PermissionsAndroid
 } from "react-native";
 import RNLocation from "react-native-location";
+
 export default class Geo_Configuration extends React.PureComponent {
     constructor() {
         super();
@@ -22,46 +25,51 @@ export default class Geo_Configuration extends React.PureComponent {
             location: null
         };
     }
+
     componentWillMount() {
         RNLocation.configure({
             distanceFilter: 5.0
-        }).then(() => RNLocation.requestPermission({
-            }),
+        });
 
-            RNLocation.requestPermission({
-                ios: "whenInUse",
-                android: {
-                    detail: "fine",
-                    rationale: {
-                        title: "Location permission",
-                        message: "We use your location to demo the library",
-                        buttonPositive: "OK",
-                        buttonNegative: "Cancel"
-                    }
+        RNLocation.requestPermission({
+            ios: "whenInUse",
+            android: {
+                detail: "fine",
+                rationale: {
+                    title: "Location permission",
+                    message: "We use your location to demo the library",
+                    buttonPositive: "OK",
+                    buttonNegative: "Cancel"
                 }
-            })).then(granted => {
+            }
+        }).then(granted => {
             if (granted) {
                 this._startUpdatingLocation();
             }
         });
     }
+
     _startUpdatingLocation = () => {
         this.locationSubscription = RNLocation.subscribeToLocationUpdates(
             locations => {
-                this.setState({ location: locations[0] });
+                this.setState({location: locations[0]});
             }
         );
     };
+
     _stopUpdatingLocation = () => {
         this.locationSubscription && this.locationSubscription();
-        this.setState({ location: null });
+        this.setState({location: null});
     };
-    public getLongitude = () => {
-        this.this.longitude = location.longitude
-        return this.longitude;
+
+    getLongitude = () => {
+        const { location } = this.state;
+        return this.location.longitude;
     };
-    public getLatitude = () => {
-        this.latitude = location.latitude
-        return this.latitude;
+    getLatitude = () => {
+        const { location } = this.state;
+        return this.location.latitude;
     };
 }
+
+
