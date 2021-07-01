@@ -27,10 +27,7 @@ export default class Menu extends Component {
     }
 }
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor : '#fff'
-    },
+
     menu:{
         flexDirection: 'row',
         height: 50,

@@ -1,23 +1,27 @@
 import React, {Component} from 'react';
-import {View, Text, Button, TextInput, StyleSheet, Image} from 'react-native';
-import Weatherobject from './Weatherobject';
+import {View, Text, StyleSheet, Image} from 'react-native';
 const PocketView = props => {
-  return (
-    <View style={styles.container}>
-      <Text>{props.city}</Text>
-      <Image style={styles.weatherImage} source={require('./Unbenannt.png')} />
-      <Text>{'T: ' + props.temp}</Text>
-    </View>
-  );
-};
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-  },
 
-  weatherImage: {
-    width: 74,
-    height: 69,
-  },
+        return (
+            <View style={styles.container}>
+                <Text style={styles.citytext}>{props.city}</Text>
+                <Image style={styles.weatherImage} source={require('C:/Users/hspfl/IdeaProjects/WeatherApp_ReactNative/ui_elements/Unbenannt.png')}/>
+                <Text style={styles.citytext}>{props.temp}</Text>
+            </View>
+        );
+
+}
+const styles = StyleSheet.create({
+    container: {
+        alignItems: 'center',
+    },
+
+    weatherImage:{
+        width: 175,
+        height: 175,
+    },
+    citytext:{
+        fontSize: 30,
+    }
 });
 export default PocketView;
