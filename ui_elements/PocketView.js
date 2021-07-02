@@ -1,12 +1,12 @@
+import {View, Text, StyleSheet} from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 import React, {Component} from 'react';
-import {View, Text, Button, TextInput, StyleSheet, Image} from 'react-native';
-import Weatherobject from './Weatherobject';
 const PocketView = props => {
   return (
     <View style={styles.container}>
-      <Text>{props.city}</Text>
-      <Image style={styles.weatherImage} source={require('./Unbenannt.png')} />
-      <Text>{'T: ' + props.temp}</Text>
+      <Text style={styles.citytext}>{props.city}</Text>
+      <Icon name="sun" size={100} color="#F0DA0B" />
+      <Text style={styles.citytext}>{props.temp}</Text>
     </View>
   );
 };
@@ -16,8 +16,11 @@ const styles = StyleSheet.create({
   },
 
   weatherImage: {
-    width: 74,
-    height: 69,
+    width: 175,
+    height: 175,
+  },
+  citytext: {
+    fontSize: 30,
   },
 });
 export default PocketView;

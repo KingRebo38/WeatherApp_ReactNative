@@ -1,3 +1,5 @@
+import {Time_formatter} from '../time_formatter/time_formatter';
+
 export class Openweather_data_model {
   constructor(json) {
     this.json = json;
@@ -24,13 +26,13 @@ export class Openweather_data_model {
     return this.json.main;
   }
   getMainTemp() {
-    return this.getMain().temp;
+    return Math.round((this.getMain().temp - 273.15) * 100) / 100;
   }
   getMainMin() {
-    return this.getMain().temp_min;
+    return Math.round((this.getMain().temp_min - 273.15) * 100) / 100;
   }
   getMainMax() {
-    return this.getMain().temp_max;
+    return Math.round((this.getMain().temp_max - 273.15) * 100) / 100;;
   }
   getMainHumidity() {
     return this.getMain().humidity;
@@ -45,13 +47,14 @@ export class Openweather_data_model {
     return this.json.clouds.all;
   }
   getDateTimeOfMeasurement() {
-    return this.json.dt;
+    let time = new Date(this.json.dt * 1000);
+    return Time_formatter.getTimeOnly(time);
   }
   // Name
-  getName(){
+  getName() {
     return this.json.name;
   }
-  toString(){
+  toString() {
     return (
       '[' +
       this.getName() +
