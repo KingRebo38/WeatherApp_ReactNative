@@ -1,75 +1,109 @@
 /**
  * Geo_Configuration
  * Author: M. Medenbach
- * Last Changes: 29.06.2021
+ * Last Changes: 02.07.2021
+ *
+ *
+ * @format
+ * @flow strict-local
  */
 
-import React from "react";
+import React, {Component, isValidElement} from 'react';
+// import Geolocation from '@react-native-community/geolocation';
+import RNLocation from 'react-native-location';
+
 import {
-    Linking,
     SafeAreaView,
     ScrollView,
+    StatusBar,
     StyleSheet,
-    Text,
-    TouchableHighlight,
-    View,
     Button,
-    PermissionsAndroid
-} from "react-native";
-import RNLocation from "react-native-location";
+    Text,
+    useColorScheme,
+    View,
+    PermissionsAndroid,
+    Alert,
+} from 'react-native';
 
-export default class Geo_Configuration extends React.PureComponent {
-    constructor() {
-        super();
-        this.state = {
-            location: null
-        };
-    }
-
-    componentWillMount() {
-        RNLocation.configure({
-            distanceFilter: 5.0
-        });
-
-        RNLocation.requestPermission({
-            ios: "whenInUse",
-            android: {
-                detail: "fine",
-                rationale: {
-                    title: "Location permission",
-                    message: "We use your location to demo the library",
-                    buttonPositive: "OK",
-                    buttonNegative: "Cancel"
-                }
-            }
-        }).then(granted => {
-            if (granted) {
-                this._startUpdatingLocation();
-            }
-        });
-    }
-
-    _startUpdatingLocation = () => {
-        this.locationSubscription = RNLocation.subscribeToLocationUpdates(
-            locations => {
-                this.setState({location: locations[0]});
-            }
-        );
+export default class Geo_Configuration extends Component {
+    state = {
+        lat: 'lat',
+        lon: 'lon',
+        temp: 'temp',
     };
 
-    _stopUpdatingLocation = () => {
-        this.locationSubscription && this.locationSubscription();
-        this.setState({location: null});
+    constructor() {
+        super();
+    }
+
+    start = async () => {
+        await this.requestLocationPermission();
+        RNLocation.configure({
+            distanceFilter: 100, // Meters
+            desiredAccuracy: {
+                ios: 'best',
+                android: 'highAccuracy',
+            },
+            // Android only
+            androidProvider: 'auto',
+            interval: 5000, // Milliseconds
+            fastestInterval: 10000, // Milliseconds
+            maxWaitTime: 5000, // Milliseconds
+            // iOS Only
+            activityType: 'other',
+            allowsBackgroundLocationUpdates: false,
+            headingFilter: 1, // Degrees
+            headingOrientation: 'portrait',
+            pausesLocationUpdatesAutomatically: false,
+            showsBackgroundLocationIndicator: false,
+        }).then(r => null);
+
+        var permission = await RNLocation.requestPermission({
+            ios: 'whenInUse',
+            android: {
+                detail: 'coarse',
+                rationale: {
+                    title: 'We need to access your location',
+                    message: 'We use your location to show where you are on the map',
+                    buttonPositive: 'OK',
+                    buttonNegative: 'Cancel',
+                },
+            },
+        });
+        RNLocation.getCurrentPermission().then(currentPermission => {
+            console.log(currentPermission);
+        });
+        var location = await RNLocation.getLatestLocation();
+        this.state = {
+            temp: JSON.stringify(location),
+            lat: JSON.stringify(location.latitude),
+            lon: JSON.stringify(location.longitude)}
+    };
+
+    requestLocationPermission = async () => {
+        await RNLocation.requestPermission({
+            ios: 'whenInUse', // or 'always'
+            android: {
+                detail: 'coarse', // or 'fine'
+                rationale: {
+                    title: 'We need to access your location',
+                    message: 'We use your location to show where you are on the map',
+                    buttonPositive: 'OK',
+                    buttonNegative: 'Cancel',
+                },
+            },
+        });
+    };
+
+    getLocation = () => {
+        return this.state.temp;
     };
 
     getLongitude = () => {
-        const { location } = this.state;
-        return this.location.longitude;
+        return this.state.lon;
     };
+
     getLatitude = () => {
-        const { location } = this.state;
-        return this.location.latitude;
+        return this.state.lat;
     };
 }
-
-
