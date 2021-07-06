@@ -35,7 +35,7 @@ export class Openweather_api {
              lon +
             '&cnt=' +
              1 +
-            '&appid='
+            '&appid=' +
             api_key;
         return url;
 }
@@ -46,7 +46,7 @@ export class Openweather_api {
             await geo.start();
             //let response = await fetch(this.getURLByCityID(2809889));
             console.log(Time_formatter.getCurrentTime() + ' ' + geo.getLongitude() + ' ' + geo.getLatitude())
-            let response = await fetch(this.getURLByGeographicCoordinates(geo.getLongitude(), geo.getLatitude()));
+            let response = await fetch(this.getURLByGeographicCoordinates(geo.getLatitude(), geo.getLongitude()));
             var responseText = await response.text();
             console.log(
                 Time_formatter.getCurrentTime() + ' response: ' + responseText,
