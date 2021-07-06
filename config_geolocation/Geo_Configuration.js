@@ -9,7 +9,6 @@
  */
 
 import React, {Component, isValidElement} from 'react';
-// import Geolocation from '@react-native-community/geolocation';
 import RNLocation from 'react-native-location';
 
 import {

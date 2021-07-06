@@ -45,6 +45,7 @@ export class Openweather_api {
             let geo = new Geo_Configuration();
             await geo.start();
             //let response = await fetch(this.getURLByCityID(2809889));
+            console.log(Time_formatter.getCurrentTime() + ' ' + geo.getLongitude() + ' ' + geo.getLatitude())
             let response = await fetch(this.getURLByGeographicCoordinates(geo.getLongitude(), geo.getLatitude()));
             var responseText = await response.text();
             console.log(
