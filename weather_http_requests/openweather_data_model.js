@@ -32,7 +32,7 @@ export class Openweather_data_model {
     return Math.round((this.getMain().temp_min - 273.15) * 100) / 100;
   }
   getMainMax() {
-    return Math.round((this.getMain().temp_max - 273.15) * 100) / 100;;
+    return Math.round((this.getMain().temp_max - 273.15) * 100) / 100;
   }
   getMainHumidity() {
     return this.getMain().humidity;

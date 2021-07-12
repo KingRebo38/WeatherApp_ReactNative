@@ -7,15 +7,19 @@
  */
 
 import React, {Component} from 'react';
-import {View, Text, Button, TextInput, StyleSheet, ScrollView} from 'react-native';
-import {Openweather_api} from './weather_http_requests/openweather_api.js';
-import {Time_formatter} from './time_formatter/time_formatter';
-import {Openweather_data_model} from './weather_http_requests/openweather_data_model';
+import {
+  View,
+  Text,
+  Button,
+  TextInput,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
 import {Weather_ui_control} from './weather_controller/weather_ui_control';
 import Menu from './ui_elements/Menu';
 import Weatherobject from './ui_elements/Weatherobject';
-import PocketView from "./ui_elements/PocketView";
-import Nextday from "./ui_elements/Nextday";
+import PocketView from './ui_elements/PocketView';
+import Nextday from './ui_elements/Nextday';
 
 export default class App extends Component {
   state = {
@@ -29,6 +33,7 @@ export default class App extends Component {
     wind_speed: 'filler',
     description: 'filler',
     weather_main_description: 'filler',
+    name: 'filler',
   };
 
   constructor(props) {
@@ -36,7 +41,6 @@ export default class App extends Component {
     // this.openweatherAPI = new Openweather_api();
     this.controller = new Weather_ui_control(this);
     this.controller.getWeatherData().then(r => this.controller.updateWeather());
-
 
   }
   onPress = async () => {
@@ -46,20 +50,18 @@ export default class App extends Component {
     this.controller.updateWeather(this);
   };
 
-  // showText = text => {
-  //   this.setState({textValue: text});
-  //
-  //   console.log(this.state.textValue);
-  // };
 
   render() {
     return (
-        <ScrollView style={styles.framework}>
-          <Menu/>
-          <PocketView city={'London'} temp ={this.state.temperature + '°C'}/>
-          <Weatherobject state ={this.state}/>
-          <Nextday day={'Mo'} state={this.state}/>
-        </ScrollView>
+      <ScrollView style={styles.framework}>
+        <Menu />
+        <PocketView
+          city={this.state.name}
+          temp={this.state.temperature + '°C'}
+        />
+        <Weatherobject state={this.state} />
+        <Nextday day={'Mo'} state={this.state} />
+      </ScrollView>
     );
   }
 }
