@@ -7,20 +7,30 @@
  */
 
 import React, {Component} from 'react';
-import {View, Text, Button, TextInput, StyleSheet, Image} from 'react-native';
+import {View, Text, Button, TextInput, StyleSheet, Image, TouchableHighlight} from 'react-native';
+import EntypoIcon from 'react-native-vector-icons/Entypo'
+import FontistoIcon from "react-native-vector-icons/Fontisto";
+import Entypo from "react-native-vector-icons/Entypo";
 
 export default class Menu extends Component {
 
-    onPress = () => {
+    suchenButtonClicked = () => {
         //placeholder for Michi
+    };
+    currentLocationButtonClicked = () => {
+        //placeholder for Michi XD
     };
 
     render() {
         return (
                 <View style={styles.menu}>
-                    <View style={styles.burger}></View>
+                    <TouchableHighlight onPress={this.currentLocationButtonClicked}>
+                        <View style={styles.burger}>
+                            <EntypoIcon name="location" size={49} color="#FDFDFD"/>
+                        </View>
+                    </TouchableHighlight>
                     <TextInput style={styles.searchbar} id='idSearch'/>
-                    <Button title={'Suchen'} onPress={this.onPress}>
+                    <Button title={'Suchen'} onPress={this.suchenButtonClicked}>
                     </Button>
                 </View>
         );
