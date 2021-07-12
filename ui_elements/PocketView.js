@@ -2,6 +2,15 @@ import {View, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import React, {Component} from 'react';
 const PocketView = props => {
+  /*let icon;
+  if (props.desc == "cloudy"){
+    icon = "cloud"
+  }
+  else if (props.desc == "sunny"){
+    icon = "sun"
+  }
+*/
+
   return (
     <View style={styles.container}>
       <Text style={styles.citytext}>{props.city}</Text>
