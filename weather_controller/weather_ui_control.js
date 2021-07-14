@@ -12,10 +12,12 @@ export class Weather_ui_control {
   }
 
   getWeatherData = async () => {
-    var result = await this.openweatherAPI.getWeatherInformation();
-    var foreinfo = await this.openweatherAPI.getForeCastInformation();
-    let currentWeather = new Openweather_data_model(result);
-    let foreCast = new One_call_data(foreinfo);
+    var currentWeatherJSON = await this.openweatherAPI.getWeather(this.openweatherAPI.getCurrentWeatherURLbyGEO);
+    // console.log("TEST:"+JSON.stringify(result));
+    var forecastJSON = await this.openweatherAPI.getWeather(this.openweatherAPI.getForeCastURLbyGEO);
+
+    let currentWeather = new Openweather_data_model(currentWeatherJSON);
+    let foreCast = new One_call_data(forecastJSON);
     console.log(foreCast.toString());
     console.log(
       Time_formatter.getCurrentTime() + ' Weather: ' + currentWeather.getMainTemp(),
@@ -36,6 +38,9 @@ export class Weather_ui_control {
     this.app.setState({weather_main_description: this.currentWeather.getWeatherMain()});
     this.app.setState({name: this.currentWeather.getName()});
     this.app.setState({currentWeatherData: this.currentWeather});
+    this.app.setState({forecast: this.forecast});
+
+    console.log("UPDATE FORECAST" + this.app.state.forecast.toString())
     console.log('update ' + this.currentWeather.toString());
     console.log(this.app.state);
   }

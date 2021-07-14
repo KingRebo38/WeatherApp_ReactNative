@@ -34,13 +34,28 @@ export default class App extends Component {
     description: 'filler',
     weather_main_description: 'filler',
     name: 'filler',
+    forecast: '',
+
   };
+
+  buildNextDays = () => {
+    var nextdays = [];
+    var i = 0;
+    this.state.forecast.daily.forEach(value => {
+          nextdays.push(
+              <Nextday key={'nextday-' + i++} day={value.getDay()} forecast={value}/>
+          )
+    }
+        )
+    this.setState({nextDays: nextdays});
+  }
+
 
   constructor(props) {
     super(props);
     // this.openweatherAPI = new Openweather_api();
     this.controller = new Weather_ui_control(this);
-    this.controller.getWeatherData().then(r => this.controller.updateWeather());
+    this.controller.getWeatherData().then(r => this.controller.updateWeather()).then(this.buildNextDays);
 
   }
   onPress = async () => {
@@ -60,7 +75,9 @@ export default class App extends Component {
           temp={this.state.temperature + '°C'}
         />
         <Weatherobject state={this.state} />
-        <Nextday day={'Mo'} state={this.state} />
+        {/*<Nextday day={'Mo'} state={this.state} />*/}
+        <View>{this.state.nextDays}</View>
+
       </ScrollView>
     );
   }

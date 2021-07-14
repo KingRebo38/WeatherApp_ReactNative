@@ -14,7 +14,7 @@ export class Openweather_api {
       api_key;
     return url;
   }
-  getURLByGeographicCoordinates(lat, lon) {
+  getCurrentWeatherURLbyGEO(lat, lon) {
     var url =
       'https://api.openweathermap.org/data/2.5/weather?lat=' +
       lat +
@@ -37,7 +37,7 @@ export class Openweather_api {
     return url;
   }
 
-  getOpenweatherOneCallRequest(lat, lon) {
+  getForeCastURLbyGEO(lat, lon) {
     var url =
       'https://api.openweathermap.org/data/2.5/onecall?lat=' +
       lat +
@@ -80,7 +80,7 @@ export class Openweather_api {
 
       // var res = [];
       let res = await fetch(
-        this.getOpenweatherOneCallRequest(
+        this.getForeCastURLbyGEO(
           geo.getLatitude(),
           geo.getLongitude(),
         ),
@@ -109,20 +109,44 @@ export class Openweather_api {
           geo.getLatitude(),
       );
       let response = await fetch(
-        this.getURLByGeographicCoordinates(
-          geo.getLatitude(),
-          geo.getLongitude(),
-        ),
+        this.getCurrentWeatherURLbyGEO(geo.getLatitude(), geo.getLongitude()),
       );
-      var responseText = await response.text();
+      var responseText = await response.json();
       console.log(
-        Time_formatter.getCurrentTime() + ' response: ' + responseText,
+        Time_formatter.getCurrentTime() +
+          ' response: ' +
+          JSON.stringify(responseText),
       );
-      // let json = await response.json();
 
-      var j = JSON.parse(responseText);
-      console.log(Time_formatter.getCurrentTime() + ' json: ' + j);
-      return j;
+      return responseText;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  getWeather = async method => {
+    try {
+      let geo = new Geo_Configuration();
+      await geo.start();
+      //let response = await fetch(this.getURLByCityID(2809889));
+      console.log(
+        Time_formatter.getCurrentTime() +
+          'Current Weather: ' +
+          geo.getLongitude() +
+          ' ' +
+          geo.getLatitude(),
+      );
+      let response = await fetch(
+        method(geo.getLatitude(), geo.getLongitude()),
+      );
+      var responseText = await response.json();
+      console.log(
+        Time_formatter.getCurrentTime() +
+          ' response: ' +
+          JSON.stringify(responseText),
+      );
+
+      return responseText;
     } catch (error) {
       console.log(error);
     }

@@ -18,19 +18,21 @@ export class One_call_daily {
     return Math.round((this.json.temp.max - 273.15) * 100) / 100;
   }
   getSunrise() {
-    return this.json.sunrise;
+    var date = new Date(this.json.sunrise * 1000);
+    return Time_formatter.getTimeOnly(date);
   }
   getSunset() {
-    return this.json.sunset;
+    var date = new Date(this.json.sunset * 1000);
+    return Time_formatter.getTimeOnly(date);
   }
   toString(){
     var s ='{\n';
-    s += '\t'+this.getDay()+'\n';
-    s += '\t'+this.getTempDay()+'\n';
-    s += '\t'+this.getTempMin()+'\n';
-    s += '\t'+this.getTempMax()+'\n';
-    s += '\t'+this.getSunrise()+'\n';
-    s += '\t'+this.getSunset()+'\n';
+    s += ''+this.getDay()+',';
+    s += ''+this.getTempDay()+',';
+    s += ''+this.getTempMin()+',';
+    s += ''+this.getTempMax()+',';
+    s += ''+this.getSunrise()+',';
+    s += ''+this.getSunset()+'';
     s += '}';
     return s;
   }
