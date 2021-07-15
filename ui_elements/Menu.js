@@ -11,21 +11,17 @@ import {View, Text, Button, TextInput, StyleSheet, Image, TouchableHighlight} fr
 import EntypoIcon from 'react-native-vector-icons/Entypo'
 import FontistoIcon from "react-native-vector-icons/Fontisto";
 import Entypo from "react-native-vector-icons/Entypo";
+import Weatherobject from "./Weatherobject";
 
-export default class Menu extends Component {
+const Menu = props =>  {
 
-    suchenButtonClicked= () =>{
-    }
-
-    render() {
         return (
                 <View style={styles.menu}>
                     <TextInput style={styles.searchbar} id='idSearch'/>
-                    <Button title={'Suchen'} onPress={this.suchenButtonClicked()}>
+                    <Button title={'Suchen'} onPress={props.app.suchenButtonClicked}>
                     </Button>
                 </View>
         );
-    }
 }
 const styles = StyleSheet.create({
 
@@ -45,7 +41,7 @@ const styles = StyleSheet.create({
     },
 
 });
-
+export default Menu;
 
 
 

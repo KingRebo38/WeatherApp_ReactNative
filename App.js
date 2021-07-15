@@ -36,7 +36,25 @@ export default class App extends Component {
     weather_main_description: 'filler',
     name: 'filler',
     forecast: '',
+    layout_state: <View/>
   };
+
+  suchenButtonClicked = () => {
+    const map =(
+        <Button title={'Umut'} onPress={this.confirmButtoncklicked()}></Button>
+    );
+    this.setState({layout_state: map})
+  }
+  confirmButtoncklicked = () => {
+    const exp =(
+        <View>
+          <PocketView city={this.state.name} temp={this.state.temperature + '°C'} time={this.state.date_time_measurement}/>
+          <Weatherobject state={this.state} />
+          <View>{this.state.nextDays}</View>
+        </View>
+    );
+    this.setState({layout_state: exp})
+  }
 
   buildNextDays = () => {
     var nextdays = [];
@@ -58,6 +76,7 @@ export default class App extends Component {
             UIManager.setLayoutAnimationEnabledExperimental(true);
         }
   }
+
   onPress = async () => {
     if (!this.controller.isDataAvailable()) {
       await this.controller.getWeatherData();
@@ -68,8 +87,9 @@ export default class App extends Component {
   render() {
     return (
       <ScrollView style={styles.framework}>
-        <Menu/>
-        <PocketView city={this.state.name} temp={this.state.temperature + '°C'} time={this.state.date_time_measurement}/>
+        <Menu app={this}/>
+        {/*{this.state.layout_state}*/}
+        <PocketView city={this.state.name} temp={this.state.temperature + '°C'} desc={4} time={this.state.date_time_measurement}/>
         <Weatherobject state={this.state} />
         <View>{this.state.nextDays}</View>
       </ScrollView>
@@ -80,5 +100,18 @@ const styles = StyleSheet.create({
   framework: {
     flex: 1,
   },
+  menu:{
+    flexDirection: 'row',
+    height: 50,
+    alignItems: 'center',
+    backgroundColor: '#BFEFFF'
+  },
 
+  searchbar:{
+    height: 40,
+    width: '80%',
+    marginRight: 5,
+    marginLeft: 5,
+    backgroundColor: '#fff'
+  },
 });
