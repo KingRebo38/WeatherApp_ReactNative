@@ -12,11 +12,21 @@ const PocketView = props => {
 */
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.citytext}>{props.city}</Text>
-      <Icon name="sun" size={100} color="#F0DA0B" />
-      <Text style={styles.citytext}>{props.temp}</Text>
-    </View>
+      <View>
+        <View style={styles.header}>
+          <View style={styles.cityview}></View>
+          <View style={styles.cityview}>
+            <Text style={styles.citytext}>{props.city}</Text>
+          </View>
+          <View stxle={styles.timeview}>
+            <Text style={styles.timetext}>{props.time+'Uhr'}</Text>
+          </View>
+        </View>
+        <View style={styles.container}>
+          <Icon name="sun" size={100} color="#F0DA0B" />
+          <Text style={styles.citytext}>{props.temp}</Text>
+        </View>
+      </View>
   );
 };
 const styles = StyleSheet.create({
@@ -31,5 +41,22 @@ const styles = StyleSheet.create({
   citytext: {
     fontSize: 30,
   },
+  header:{
+    flexDirection: 'row',
+  },
+  cityview:{
+    width:'33%',
+    alignItems: 'center',
+  },
+  timetext:{
+    marginLeft: 40,
+    fontSize: 20,
+    marginTop: 5,
+  },
+  timeview: {
+    width: '33%',
+    alignItems: 'flex-end',
+  }
+
 });
 export default PocketView;

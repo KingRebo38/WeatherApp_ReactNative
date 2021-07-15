@@ -31,11 +31,6 @@ const Weatherobject = props => {
           <Text style={styles.windtext}>{props.state.wind_speed + 'm/s'}</Text>
         </View>
       </View>
-      <View style={styles.uhrzeit}>
-        <Text style={styles.middletext}>
-          {props.state.date_time_measurement + ' Uhr'}
-        </Text>
-      </View>
     </ScrollView>
   );
 };

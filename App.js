@@ -13,13 +13,14 @@ import {
   Button,
   TextInput,
   StyleSheet,
-  ScrollView,
+  ScrollView, LayoutAnimation, Platform, UIManager
 } from 'react-native';
 import {Weather_ui_control} from './weather_controller/weather_ui_control';
 import Menu from './ui_elements/Menu';
 import Weatherobject from './ui_elements/Weatherobject';
 import PocketView from './ui_elements/PocketView';
 import Nextday from './ui_elements/Nextday';
+
 
 export default class App extends Component {
   state = {
@@ -35,7 +36,6 @@ export default class App extends Component {
     weather_main_description: 'filler',
     name: 'filler',
     forecast: '',
-
   };
 
   buildNextDays = () => {
@@ -49,14 +49,14 @@ export default class App extends Component {
         )
     this.setState({nextDays: nextdays});
   }
-
-
   constructor(props) {
     super(props);
     // this.openweatherAPI = new Openweather_api();
     this.controller = new Weather_ui_control(this);
     this.controller.getWeatherData().then(r => this.controller.updateWeather()).then(this.buildNextDays);
-
+    if (Platform.OS === 'android') {
+            UIManager.setLayoutAnimationEnabledExperimental(true);
+        }
   }
   onPress = async () => {
     if (!this.controller.isDataAvailable()) {
@@ -65,19 +65,13 @@ export default class App extends Component {
     this.controller.updateWeather(this);
   };
 
-
   render() {
     return (
       <ScrollView style={styles.framework}>
-        <Menu />
-        <PocketView
-          city={this.state.name}
-          temp={this.state.temperature + '°C'}
-        />
+        <Menu/>
+        <PocketView city={this.state.name} temp={this.state.temperature + '°C'} time={this.state.date_time_measurement}/>
         <Weatherobject state={this.state} />
-        {/*<Nextday day={'Mo'} state={this.state} />*/}
         <View>{this.state.nextDays}</View>
-
       </ScrollView>
     );
   }
@@ -86,4 +80,5 @@ const styles = StyleSheet.create({
   framework: {
     flex: 1,
   },
+
 });

@@ -5,7 +5,10 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 const Nextday = props => {
   return (
     <View style={styles.nextday}>
-      <Text style={styles.lefttext}>{props.day}</Text>
+      <View style={styles.dayview}>
+        <Text style={styles.lefttext}>{props.day}</Text>
+      </View>
+      <View style={styles.sunwiew}>
       <View style={styles.rightView}>
         <FontAwesomeIcon name="sun-o" size={25} color="#F0DA0B" />
         <Text style={styles.righttext}>
@@ -18,6 +21,8 @@ const Nextday = props => {
           {props.forecast.getSunset() + 'Uhr'}
         </Text>
       </View>
+      </View>
+      <View style={styles.tempviewL}>
       <View style={styles.rightView}>
         <View>
           <Text style={styles.righttext}>
@@ -27,8 +32,9 @@ const Nextday = props => {
             {'max: ' + props.forecast.getTempMax() + '°C'}
           </Text>
         </View>
-        <Text style={styles.righttext}>{props.forecast.getTempDay() + '°C'}</Text>
       </View>
+      </View>
+        <View style={styles.tempviewR}><Text style={styles.righttextD}>{props.forecast.getTempDay() + '°C'}</Text></View>
     </View>
   );
 };
@@ -52,5 +58,23 @@ const styles = StyleSheet.create({
   righttext: {
     marginRight: 10,
   },
+  righttextD: {
+      fontSize: 17,
+    marginRight: 10,
+  },
+  dayview:{
+    width:'25%',
+  },
+  sunwiew:{
+    width:'25%',
+  },
+  tempviewL:{
+    width:'26%',
+  },
+    tempviewR:{
+      alignItems: 'center',
+        width:'18%',
+    }
+
 });
 export default Nextday;
