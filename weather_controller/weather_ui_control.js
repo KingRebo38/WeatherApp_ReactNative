@@ -12,9 +12,10 @@ export class Weather_ui_control {
   }
 
   getWeatherData = async () => {
-    var currentWeatherJSON = await this.openweatherAPI.getWeather(this.openweatherAPI.getCurrentWeatherURLbyGEO);
+    var currentWeatherJSON = await this.openweatherAPI.getWeather(this.openweatherAPI.getCurrentWeather);
+    // var currentWeatherJSON = await this.openweatherAPI.getWeather(Openweather_api.getWeatherByCityName('Wetzlar'));
     // console.log("TEST:"+JSON.stringify(result));
-    var forecastJSON = await this.openweatherAPI.getWeather(this.openweatherAPI.getForeCastURLbyGEO);
+    var forecastJSON = await this.openweatherAPI.getWeather(this.openweatherAPI.getForeCast);
 
     let currentWeather = new Openweather_data_model(currentWeatherJSON);
     let foreCast = new One_call_data(forecastJSON);
@@ -27,19 +28,7 @@ export class Weather_ui_control {
   };
 
   updateWeather = () => {
-    // this.app.setState({temperature: this.currentWeather.getMainTemp()});
-    // this.app.setState({min_temperature: this.currentWeather.getMainMin()});
-    // this.app.setState({max_temperature: this.currentWeather.getMainMax()});
-    // this.app.setState({humidity: this.currentWeather.getMainHumidity()});
-    // this.app.setState({cloud_visibility: this.currentWeather.getCloudVisibility()});
-    // this.app.setState({date_time_measurement: this.currentWeather.getDateTimeOfMeasurement()});
-    // this.app.setState({wind_speed: this.currentWeather.getWindSpeed()});
-    // this.app.setState({description: this.currentWeather.getWeatherDescription()});
-    // this.app.setState({weather_main_description: this.currentWeather.getWeatherMain()});
-    // this.app.setState({name: this.currentWeather.getName()});
-    // this.app.setState({weatherID: this.currentWeather.getWeatherID()});
-    // this.app.setState({currentWeatherData: this.currentWeather});
-    // this.app.setState({forecast: this.forecast});
+
     this.app.setState({
       weatherID: this.currentWeather.getWeatherID(),
       temperature: this.currentWeather.getMainTemp(),

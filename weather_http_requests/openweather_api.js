@@ -14,7 +14,7 @@ export class Openweather_api {
       api_key;
     return url;
   }
-  getCurrentWeatherURLbyGEO(lat, lon) {
+  static getCurrentWeatherURLbyGEO(lat, lon) {
     var url =
       'https://api.openweathermap.org/data/2.5/weather?lat=' +
       lat +
@@ -23,21 +23,9 @@ export class Openweather_api {
       '&appid=' +
       api_key;
     return url;
-  }
-  getWeatherForeCastForNextDays(lat, lon, cnt) {
-    var url =
-      'https://api.openweathermap.org/data/2.5/forecast/daily?lat=' +
-      lat +
-      '&lon=' +
-      lon +
-      '&cnt=' +
-      cnt +
-      '&appid=' +
-      api_key;
-    return url;
-  }
+  };
 
-  getForeCastURLbyGEO(lat, lon) {
+  static getForeCastURLbyGEO(lat, lon) {
     var url =
       'https://api.openweathermap.org/data/2.5/onecall?lat=' +
       lat +
@@ -50,95 +38,81 @@ export class Openweather_api {
       api_key;
     return url;
   }
+  //
+  // //Gibt ein Object zurück, welches den Namen des Ortes/ der Orte zurückgibt, sowie ALLE dazugehörenden Wetterdaten
+  // //durch den Parameter cnt kann eine Anzahl an Städte im Umkreis bestimmt werden, zu welchen man Wetterdaten erhalten möchte
+  // getCityName(lat, lon) {
+  //   var url =
+  //     'https://api.openweathermap.org/data/2.5/find?lat=' +
+  //     lat +
+  //     '&lon=' +
+  //     lon +
+  //     '&cnt=' +
+  //     1 +
+  //     '&appid=' +
+  //     api_key;
+  //   return url;
+  // }
 
-  //Gibt ein Object zurück, welches den Namen des Ortes/ der Orte zurückgibt, sowie ALLE dazugehörenden Wetterdaten
-  //durch den Parameter cnt kann eine Anzahl an Städte im Umkreis bestimmt werden, zu welchen man Wetterdaten erhalten möchte
-  getCityName(lat, lon) {
+  static getWeatherByCityName(name: string){
     var url =
-      'https://api.openweathermap.org/data/2.5/find?lat=' +
-      lat +
-      '&lon=' +
-      lon +
-      '&cnt=' +
-      1 +
+      'https://api.openweathermap.org/data/2.5/weather?q=' +
+      name +
       '&appid=' +
       api_key;
     return url;
+
   }
 
-  getForeCastInformation = async () => {
+  async getCurrentWeather() {
     try {
       let geo = new Geo_Configuration();
       await geo.start();
+
       console.log(
         Time_formatter.getCurrentTime() +
-          'Forecast:  ' +
+          'Current Weather: ' +
           geo.getLongitude() +
           ' ' +
           geo.getLatitude(),
       );
-
-      // var res = [];
-      let res = await fetch(
-        this.getForeCastURLbyGEO(
-          geo.getLatitude(),
-          geo.getLongitude(),
-        ),
-      );
-
-      var resJson = await res.json();
-      console.log('res: ' + JSON.stringify(resJson));
-
-      console.log(Time_formatter.getCurrentTime() + ' json: ' + resJson);
-      return resJson;
+      let url = Openweather_api.getCurrentWeatherURLbyGEO(geo.getLatitude(), geo.getLongitude())
+      return url;
     } catch (e) {
       console.log(e);
     }
-  };
-
-  getWeatherInformation = async () => {
+  }
+  async getForeCast() {
     try {
       let geo = new Geo_Configuration();
       await geo.start();
-      //let response = await fetch(this.getURLByCityID(2809889));
+
       console.log(
         Time_formatter.getCurrentTime() +
-          'Current Weather: ' +
+          'Forecast Weather: ' +
           geo.getLongitude() +
           ' ' +
           geo.getLatitude(),
       );
-      let response = await fetch(
-        this.getCurrentWeatherURLbyGEO(geo.getLatitude(), geo.getLongitude()),
-      );
-      var responseText = await response.json();
-      console.log(
-        Time_formatter.getCurrentTime() +
-          ' response: ' +
-          JSON.stringify(responseText),
-      );
-
-      return responseText;
-    } catch (error) {
-      console.log(error);
+      var url = Openweather_api.getForeCastURLbyGEO(geo.getLatitude(), geo.getLongitude())
+      return url;
+    } catch (e) {
+      console.log(e);
     }
-  };
+  }
+
 
   getWeather = async method => {
     try {
-      let geo = new Geo_Configuration();
-      await geo.start();
-      //let response = await fetch(this.getURLByCityID(2809889));
-      console.log(
-        Time_formatter.getCurrentTime() +
-          'Current Weather: ' +
-          geo.getLongitude() +
-          ' ' +
-          geo.getLatitude(),
-      );
-      let response = await fetch(
-        method(geo.getLatitude(), geo.getLongitude()),
-      );
+      let request;
+      console.log('Method is starting');
+      if(typeof method === 'function'){
+        request = await method();
+      }else {
+        request = method;
+      }
+
+      let response = await fetch(request);
       var responseText = await response.json();
       console.log(
         Time_formatter.getCurrentTime() +
