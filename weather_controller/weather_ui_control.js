@@ -9,22 +9,36 @@ export class Weather_ui_control {
     this.forecast = null;
     this.openweatherAPI = new Openweather_api();
     this.app = app;
+    this.currentWeather = null;
+    this.foreCast = null;
   }
 
-  getWeatherData = async () => {
-    var currentWeatherJSON = await this.openweatherAPI.getWeather(this.openweatherAPI.getCurrentWeather);
-    // var currentWeatherJSON = await this.openweatherAPI.getWeather(Openweather_api.getWeatherByCityName('Wetzlar'));
-    // console.log("TEST:"+JSON.stringify(result));
-    var forecastJSON = await this.openweatherAPI.getWeather(this.openweatherAPI.getForeCast);
+  getWeatherData = async (name: string) => {
+    if(name === undefined || name === null || name.length === 0){
+      var currentWeatherJSON = await this.openweatherAPI.getWeather(this.openweatherAPI.getCurrentWeather);
+      this.currentWeather = new Openweather_data_model(currentWeatherJSON);
+      var forecastJSON = await this.openweatherAPI.getWeather(this.openweatherAPI.getForeCast);
+      this.foreCast = new One_call_data(forecastJSON);
 
-    let currentWeather = new Openweather_data_model(currentWeatherJSON);
-    let foreCast = new One_call_data(forecastJSON);
-    console.log(foreCast.toString());
+    }else {
+      var currentWeatherJSON = await this.openweatherAPI.getWeather(Openweather_api.getWeatherByCityName(name));
+      console.log(JSON.stringify(currentWeatherJSON))
+      if(currentWeatherJSON.cod ==404){
+        // console(currentWeatherJSON.cod)
+        return null;
+      }
+      console.log(currentWeatherJSON.cod)
+      this.currentWeather = new Openweather_data_model(currentWeatherJSON);
+      var forecastJSON = await this.openweatherAPI.getWeather(Openweather_api.getForeCastURLbyGEO(this.currentWeather.getLat(), this.currentWeather.getLon()));
+      this.foreCast = new One_call_data(forecastJSON);
+
+    }
+    console.log(this.foreCast.toString());
     console.log(
-      Time_formatter.getCurrentTime() + ' Weather: ' + currentWeather.getMainTemp(),
+      Time_formatter.getCurrentTime() + ' Weather: ' + this.currentWeather.getMainTemp(),
     );
-    this.currentWeather = currentWeather;
-    this.forecast = foreCast;
+    // this.currentWeather = currentWeather;
+    // this.forecast = foreCast;
   };
 
   updateWeather = () => {
@@ -42,7 +56,7 @@ export class Weather_ui_control {
       weather_main_description: this.currentWeather.getWeatherMain(),
       name: this.currentWeather.getName(),
       currentWeatherData: this.currentWeather,
-      forecast: this.forecast,
+      forecast: this.foreCast,
     })
 
 

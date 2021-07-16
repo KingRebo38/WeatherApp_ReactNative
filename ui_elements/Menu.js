@@ -26,6 +26,9 @@ export class Menu extends Component {
   constructor(app) {
     super(app);
     this.app = app;
+    this.state ={
+      searchText: ''
+    }
   }
 
   refresh = () => {
@@ -36,7 +39,7 @@ export class Menu extends Component {
     return (
       <View style={styles.menu}>
         <View style={styles.divButton}><Icon.Button style={styles.iconButton} size={25} name={'refresh'}  onPress={this.refresh} /></View>
-        <TextInput style={styles.searchbar} id="idSearch" />
+        <TextInput style={styles.searchbar} id="idSearch" onChangeText={text => this.state.searchText = text}/>
         <Button
           style={styles.searchButton}
           title={'Suchen'}
@@ -46,7 +49,9 @@ export class Menu extends Component {
     );
   }
 
-  suchenButtonClicked = () => {};
+  suchenButtonClicked = () => {
+    this.app.updateWeatherAndUI(this.state.searchText);
+  };
 }
 const styles = StyleSheet.create({
   menu: {

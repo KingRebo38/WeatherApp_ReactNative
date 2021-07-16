@@ -57,8 +57,8 @@ export default class App extends Component {
     this.controller = new Weather_ui_control(this);
     this.updateWeatherAndUI()
   }
-  updateWeatherAndUI(){
-    this.controller.getWeatherData().then(r => this.controller.updateWeather()).then(this.buildNextDays);
+  updateWeatherAndUI(name: string){
+    this.controller.getWeatherData(name).then(r => this.controller.updateWeather()).then(this.buildNextDays);
 
   }
 
@@ -84,6 +84,7 @@ export default class App extends Component {
         {this.state.pocketView}
         {this.weatherobject}
         <View>{this.state.nextDays}</View>
+
       </ScrollView>
     );
   }
