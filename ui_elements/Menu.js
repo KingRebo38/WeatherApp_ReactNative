@@ -7,6 +7,7 @@
  */
 
 import React, {Component} from 'react';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   View,
   Text,
@@ -27,23 +28,25 @@ export class Menu extends Component {
     this.app = app;
   }
 
-  refresh = () =>{
+  refresh = () => {
     this.app.updateWeatherAndUI();
-  }
+  };
 
   render(): React$Node {
     return (
       <View style={styles.menu}>
-        <Button title={'refresh'} onPress={this.refresh} />
+        <View style={styles.divButton}><Icon.Button style={styles.iconButton} size={25} name={'refresh'}  onPress={this.refresh} /></View>
         <TextInput style={styles.searchbar} id="idSearch" />
-        <Button title={'Suchen'} onPress={this.suchenButtonClicked} />
+        <Button
+          style={styles.searchButton}
+          title={'Suchen'}
+          onPress={this.suchenButtonClicked}
+        />
       </View>
     );
   }
 
-  suchenButtonClicked = () =>{
-
-  }
+  suchenButtonClicked = () => {};
 }
 const styles = StyleSheet.create({
   menu: {
@@ -51,11 +54,25 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: 'center',
     backgroundColor: '#BFEFFF',
+    // position: 'absolute',
   },
-
+  divButton:{
+    marginLeft: 5
+  },
+  iconButton:{
+    marginRight: -10,
+    paddingLeft: 10,
+    paddingRight: 10,
+    color: '#fff',
+    backgroundColor: '#2296f3',
+  },
+  searchButton: {
+    width: '20%',
+    // textAlign: 'right',
+  },
   searchbar: {
     height: 40,
-    width: '60%',
+    width: '68%',
     marginRight: 5,
     marginLeft: 5,
     backgroundColor: '#fff',
