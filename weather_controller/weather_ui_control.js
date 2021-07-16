@@ -27,21 +27,40 @@ export class Weather_ui_control {
   };
 
   updateWeather = () => {
-    this.app.setState({temperature: this.currentWeather.getMainTemp()});
-    this.app.setState({min_temperature: this.currentWeather.getMainMin()});
-    this.app.setState({max_temperature: this.currentWeather.getMainMax()});
-    this.app.setState({humidity: this.currentWeather.getMainHumidity()});
-    this.app.setState({cloud_visibility: this.currentWeather.getCloudVisibility()});
-    this.app.setState({date_time_measurement: this.currentWeather.getDateTimeOfMeasurement()});
-    this.app.setState({wind_speed: this.currentWeather.getWindSpeed()});
-    this.app.setState({description: this.currentWeather.getWeatherDescription()});
-    this.app.setState({weather_main_description: this.currentWeather.getWeatherMain()});
-    this.app.setState({name: this.currentWeather.getName()});
-    this.app.setState({currentWeatherData: this.currentWeather});
-    this.app.setState({forecast: this.forecast});
+    // this.app.setState({temperature: this.currentWeather.getMainTemp()});
+    // this.app.setState({min_temperature: this.currentWeather.getMainMin()});
+    // this.app.setState({max_temperature: this.currentWeather.getMainMax()});
+    // this.app.setState({humidity: this.currentWeather.getMainHumidity()});
+    // this.app.setState({cloud_visibility: this.currentWeather.getCloudVisibility()});
+    // this.app.setState({date_time_measurement: this.currentWeather.getDateTimeOfMeasurement()});
+    // this.app.setState({wind_speed: this.currentWeather.getWindSpeed()});
+    // this.app.setState({description: this.currentWeather.getWeatherDescription()});
+    // this.app.setState({weather_main_description: this.currentWeather.getWeatherMain()});
+    // this.app.setState({name: this.currentWeather.getName()});
+    // this.app.setState({weatherID: this.currentWeather.getWeatherID()});
+    // this.app.setState({currentWeatherData: this.currentWeather});
+    // this.app.setState({forecast: this.forecast});
+    this.app.setState({
+      weatherID: this.currentWeather.getWeatherID(),
+      temperature: this.currentWeather.getMainTemp(),
+      min_temperature: this.currentWeather.getMainMin(),
+      max_temperature: this.currentWeather.getMainMax(),
+      humidity: this.currentWeather.getMainHumidity(),
+      cloud_visibility: this.currentWeather.getCloudVisibility(),
+      date_time_measurement: this.currentWeather.getDateTimeOfMeasurement(),
+      wind_speed: this.currentWeather.getWindSpeed(),
+      description: this.currentWeather.getWeatherDescription(),
+      weather_main_description: this.currentWeather.getWeatherMain(),
+      name: this.currentWeather.getName(),
+      currentWeatherData: this.currentWeather,
+      forecast: this.forecast,
+    })
+
+
 
     console.log("UPDATE FORECAST" + this.app.state.forecast.toString())
     console.log('update ' + this.currentWeather.toString());
+    console.log('update ' + this.currentWeather.getWeatherID());
     console.log(this.app.state);
   }
   isDataAvailable = () => {

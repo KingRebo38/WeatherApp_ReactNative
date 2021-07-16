@@ -19,6 +19,9 @@ export class Openweather_data_model {
   getWeatherMain() {
     return this.getWeather().main;
   }
+  getWeatherID() {
+    return this.json.weather[0].id;
+  }
   getWeatherDescription() {
     return this.getWeather().description;
   }

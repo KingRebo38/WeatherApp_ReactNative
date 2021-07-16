@@ -1,39 +1,46 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {View, Text, StyleSheet, ScrollView, Image} from 'react-native';
 
 import Icon from 'react-native-vector-icons/Feather';
 import FontistoIcon from 'react-native-vector-icons/Fontisto';
 
-const Weatherobject = props => {
-  return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Text style={styles.lefttext}>
-          {'min: ' + props.state.min_temperature + '°C'}
-        </Text>
-        <Text style={styles.middletext}>
-          {'max: ' + props.state.max_temperature + '°C'}
-        </Text>
-        <View style={styles.humidity}>
-          <FontistoIcon name="fog" size={25} color="#8EE7F4" />
-          <Text style={styles.righttext}>{props.state.humidity + '%'}</Text>
-        </View>
-      </View>
-      <View style={styles.container}>
+export class Weatherobject extends Component {
+  constructor(min_temp, max_temp, humidity, cloud_vis, wind_speed) {
+    super();
+    this.min_temp = min_temp;
+    this.max_temp = max_temp;
+    this.humidity = humidity;
+    this.cloud_vis = cloud_vis;
+    this.wind_speed = wind_speed;
+  }
+
+  render() {
+    return (
+      <ScrollView>
         <View style={styles.container}>
-          <Icon name="cloud" size={25} color="#CDCDCD" style={styles.cloud} />
-          <Text style={styles.cloudtext}>
-            {props.state.cloud_visibility + '%'}
+          <Text style={styles.lefttext}>{'min: ' + this.min_temp + '°C'}</Text>
+          <Text style={styles.middletext}>
+            {'max: ' + this.max_temp + '°C'}
           </Text>
+          <View style={styles.humidity}>
+            <FontistoIcon name="fog" size={25} color="#8EE7F4" />
+            <Text style={styles.righttext}>{this.humidity + '%'}</Text>
+          </View>
         </View>
         <View style={styles.container}>
-          <Icon name="wind" size={30} color="#8EE7F4" />
-          <Text style={styles.windtext}>{props.state.wind_speed + 'm/s'}</Text>
+          <View style={styles.container}>
+            <Icon name="cloud" size={25} color="#CDCDCD" style={styles.cloud} />
+            <Text style={styles.cloudtext}>{this.cloud_vis + '%'}</Text>
+          </View>
+          <View style={styles.container}>
+            <Icon name="wind" size={30} color="#8EE7F4" />
+            <Text style={styles.windtext}>{this.wind_speed + 'm/s'}</Text>
+          </View>
         </View>
-      </View>
-    </ScrollView>
-  );
-};
+      </ScrollView>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
