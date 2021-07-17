@@ -13,7 +13,16 @@ export class Time_formatter {
 
     return dateTime;
   }
+
   static getTimeOnly(date: Date) {
-    return date.getHours() + ':' + date.getMinutes() ;
+    const h = date.getHours();
+    let m = date.getMinutes();
+
+    if (m < 10) {
+      m = '0' + date.getMinutes();
+    }
+    var s = h + ':' + m;
+
+    return s;
   }
 }
