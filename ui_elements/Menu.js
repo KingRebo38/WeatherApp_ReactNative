@@ -8,6 +8,8 @@
 
 import React, {Component} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon5 from 'react-native-vector-icons/FontAwesome5';
+
 import {
   View,
   Text,
@@ -17,10 +19,6 @@ import {
   Image,
   TouchableHighlight,
 } from 'react-native';
-import EntypoIcon from 'react-native-vector-icons/Entypo';
-import FontistoIcon from 'react-native-vector-icons/Fontisto';
-import Entypo from 'react-native-vector-icons/Entypo';
-import Weatherobject from './Weatherobject';
 
 export class Menu extends Component {
   constructor(app) {
@@ -40,11 +38,7 @@ export class Menu extends Component {
       <View style={styles.menu}>
         <View style={styles.divButton}><Icon.Button style={styles.iconButton} size={25} name={'refresh'}  onPress={this.refresh} /></View>
         <TextInput style={styles.searchbar} id="idSearch" onChangeText={text => this.state.searchText = text}/>
-        <Button
-          style={styles.searchButton}
-          title={'Suchen'}
-          onPress={this.suchenButtonClicked}
-        />
+        <View style={styles.divButton}><Icon5.Button style={styles.iconButton} size={25} name={'search-location'}  onPress={this.refresh} /></View>
       </View>
     );
   }
@@ -77,7 +71,7 @@ const styles = StyleSheet.create({
   },
   searchbar: {
     height: 40,
-    width: '68%',
+    width: '73%',
     marginRight: 5,
     marginLeft: 5,
     backgroundColor: '#fff',
