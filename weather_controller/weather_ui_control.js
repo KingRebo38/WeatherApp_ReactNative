@@ -35,10 +35,8 @@ export class Weather_ui_control {
     }
     console.log(this.foreCast.toString());
     console.log(
-      Time_formatter.getCurrentTime() + ' Weather: ' + this.currentWeather.getMainTemp(),
+        Time_formatter.getCurrentTime() + ' Weather: ' + this.currentWeather.getMainTemp(),
     );
-    // this.currentWeather = currentWeather;
-    // this.forecast = foreCast;
   };
 
   updateWeather = () => {

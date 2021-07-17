@@ -66,7 +66,7 @@ export default class App extends Component {
     // console.log('prev: ' + prevState.weatherID + ', current: '+ JSON.stringify(this.state))
     if(prevState.weatherID !== this.state.weatherID || prevState.name !== this.state.name || prevState.date_time_measurement !== this.state.date_time_measurement){
 
-      console.log('prev: ' + prevState.weatherID + ', current: '+ JSON.stringify(this.state))
+      console.log('prev: ' + JSON.stringify(prevState) + ',\n current: '+ JSON.stringify(this.state))
       this.pocketView = new PocketView(this.state.name, this.state.temperature + '°C',this.state.weatherID, this.state.date_time_measurement).render();
       this.setState({pocketView: this.pocketView})
       this.weatherobject = new Weatherobject(this.state.min_temperature, this.state.max_temperature, this.state.humidity, this.state.cloud_visibility, this.state.wind_speed).render();
@@ -76,11 +76,11 @@ export default class App extends Component {
   }
 
   render() {
-    this.menu = new Menu(this).render();
+    this.menu = new Menu(this);
 
     return (
       <ScrollView style={styles.framework}>
-        {this.menu}
+        {this.menu.render()}
         {this.state.pocketView}
         {this.weatherobject}
         <View>{this.state.nextDays}</View>

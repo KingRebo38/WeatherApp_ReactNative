@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Entypo from 'react-native-vector-icons/Entypo';
 import Icon5 from 'react-native-vector-icons/FontAwesome5';
 
 import {
@@ -24,9 +24,7 @@ export class Menu extends Component {
   constructor(app) {
     super(app);
     this.app = app;
-    this.state ={
-      searchText: ''
-    }
+    this.searchText = ''
   }
 
   refresh = () => {
@@ -36,15 +34,17 @@ export class Menu extends Component {
   render(): React$Node {
     return (
       <View style={styles.menu}>
-        <View style={styles.divButton}><Icon.Button style={styles.iconButton} size={25} name={'refresh'}  onPress={this.refresh} /></View>
-        <TextInput style={styles.searchbar} id="idSearch" onChangeText={text => this.state.searchText = text}/>
-        <View style={styles.divButton}><Icon5.Button style={styles.iconButton} size={25} name={'search-location'}  onPress={this.refresh} /></View>
+        <View style={styles.divButton}><Entypo.Button style={styles.iconButton} size={25} name={'location-pin'}  onPress={this.refresh} /></View>
+        <TextInput style={styles.searchbar} id="idSearch" onChangeText={searchText => this.app.setState({searchText: searchText})}/>
+        <View style={styles.divButton}><Icon5.Button style={styles.iconButton} size={25} name={'search-location'}  onPress={this.suchenButtonClicked} /></View>
       </View>
     );
   }
 
   suchenButtonClicked = () => {
-    this.app.updateWeatherAndUI(this.state.searchText);
+    console.log("searchText: " + this.app.state.searchText)
+    // this.setState({searchText: this.state.searchText})
+    this.app.updateWeatherAndUI(this.app.state.searchText);
   };
 }
 const styles = StyleSheet.create({
